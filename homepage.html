@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome to MedMat 🩺</title> <!-- Updated title -->
+<style>
+  body {
+    background-color: #000;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .container {
+    width: 100%;
+    padding: 2rem;
+    box-sizing: border-box;
+    text-align: center;
+  }
+  
+  h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: #add8e6; /* Light blue color */
+  }
+  
+  p {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  /* Dropdown Menu */
+  .dropdown {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: pink; /* Pink color */
+    min-width: 160px;
+    z-index: 1;
+    border-radius: 5px;
+  }
+
+  .dropdown-content a {
+    color: #000; /* Black color */
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+
+  .dropdown-content a:hover {
+    background-color: #000; /* Black color */
+    color: pink; /* Pink color */
+  }
+
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+  /* Voice Recognition Button */
+  .voice-button {
+    background-color: pink; /* Pink color */
+    color: #000; /* color */
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+
+  /* Text Input Field */
+  .text-input {
+    background-color: #fff; /* White color */
+    color: #000; /* Black color */
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    margin-top: 20px;
+    width: 60%;
+    max-width: 600px;
+    box-sizing: border-box;
+  }
+
+  /* Buttons Container */
+  .button-container {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+
+  .button-container button {
+    background-color: pink; /* Pink color */
+    color: #000; /* Black color */
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+
+  /* Chat Output */
+  .chat-output {
+    margin-top: 20px;
+    text-align: left;
+  }
+
+  .chat-message {
+    background-color: pink; /* Pink color */
+    color: #000; /* Black color */
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    display: inline-block;
+  }
+  
+  /* SOS Button */
+  .sos-button {
+    background-color: red; /* Red color */
+    color: #fff; /* White color */
+    font-size: 1.5rem;
+    border: 3px solid #fff; /* White border */
+    border-radius: 50%; /* Circle shape */
+    cursor: pointer;
+    width: 100px; /* Adjust size as needed */
+    height: 100px; /* Adjust size as needed */
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Appointment Form Styles */
+  .appointment-form {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+    margin: 20px auto;
+    max-width: 500px;
+  }
+
+  .appointment-form h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-group label {
+    display: block;
+    font-size: 18px;
+  }
+
+  .form-group input[type="text"],
+  .form-group input[type="email"],
+  .form-group input[type="date"],
+  .form-group input[type="time"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+  }
+
+  button[type="submit"] {
+    background-color: #ff7f50;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  button[type="submit"]:hover {
+    background-color: #e64a19;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Welcome to MedMat 🩺</h1> <!-- Updated heading -->
+  <p>"Empowering Health, Empowering You"</p>
+
+  <!-- Dropdown Menu -->
+  <div class="dropdown">
+    <button class="dropbtn">Menu</button>
+    <div class="dropdown-content">
+      <a href="file:///C:/Users/SUGUMAR/Desktop/medmat.html/sign%20up%20.html.html">Sign up</a>
+      <a href="file:///C:/Users/SUGUMAR/Desktop/medmat.html/calendar.html">calendar</a>
+      <a href="file:///C:/Users/SUGUMAR/Desktop/medmat.html/map.html">maps</a>
+    </div>
+  </div>
+
+  <!-- Voice Recognition Button -->
+  <button class="voice-button" onclick="toggleRecognition()">Start Recognition</button>
+
+  <!-- Text Input Field -->
+  <input type="text" class="text-input" id="textInput" placeholder="Type your message here..." onkeypress="handleKeyPress(event)">
+
+  <!-- Buttons Container -->
+  <div class="button-container">
+    <button onclick="startRecognition()">Start</button>
+    <button onclick="stopRecognition()">Stop</button>
+  </div>
+
+  <!-- Chat Output -->
+  <div class="chat-output" id="chatOutput"></div>
+</div>
+
+<center>
+<img src="img\logo.jpg" alt="logo" width="800" height="400">
+</center>
+
+<div class="container">
+  <p>Book an appointment or consult with our expert Doctors online. Fill out the form below and we'll get back to you shortly.</p>
+  <div class="appointment-form">
+    <h2>Book an Appointment</h2>
+    <form id="appointmentForm" onsubmit="submitAppointment(event)">
+      <div class="form-group">
+        <label for="      name">Your Name:</label> <!-- corrected whitespace -->
+        <input type="text" id="name" placeholder="Your Name" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Your Email:</label>
+        <input type="email" id="email" placeholder="Your Email" required>
+      </div>
+      <div class="form-group">
+        <label for="date">Select Date:</label>
+        <input type="date" id="date" required>
+      </div>
+      <div class="form-group">
+        <label for="time">Select Time:</label>
+        <input type="time" id="time" required>
+      </div>
+      <!-- I noticed you have a line with 'const problem type = document.getElementById('problem type').value;' -->
+      <!-- However, there's no input element with an ID of 'problem type' in your form. -->
+      <!-- If you want to include this, you should add an input element with an appropriate ID -->
+      <!-- I'll comment it out for now -->
+      <!-- <div class="form-group"> -->
+      <!--   <label for="problem type">Problem Type:</label> -->
+      <!--   <input type="text" id="problem type" placeholder="Problem Type"> -->
+      <!-- </div> -->
+      <button type="submit">Book Doctor Appointment</button>
+    </form>
+  </div>
+</div>
+<!-- SOS Button -->
+<button class="sos-button" onclick="alert('SOS! Alert nearby hospitals')">SOS</button>
+
+<script>
+  let recognition;
+
+  function startRecognition() {
+    recognition = new webkitSpeechRecognition();
+    recognition.lang = 'en-US';
+    recognition.onresult = function(event) {
+      let message = event.results[0][0].transcript;
+      processUserInput(message);
+    }
+    recognition.start();
+  }
+
+  function stopRecognition() {
+    if (recognition) {
+      recognition.stop();
+    }
+  }
+
+  function toggleRecognition() {
+    if (!recognition || recognition.ended) {
+      startRecognition();
+      document.querySelector('.voice-button').textContent = 'Stop Recognition';
+    } else {
+      stopRecognition();
+      document.querySelector('.voice-button').textContent = 'Start Recognition';
+    }
+  }
+
+  function handleKeyPress(event) {
+    if (event.keyCode === 13) { // Check if Enter key is pressed
+      let message = document.getElementById('textInput').value;
+      processUserInput(message);
+      document.getElementById('textInput').value = ''; // Clear input field after processing
+    }
+  }
+
+  function processUserInput(message) {
+    let response;
+    if (message.toLowerCase().includes('hi') || message.toLowerCase().includes('hello')) {
+      response = "Hello! How can I assist you today?";
+    } else if (message.includes('symptom')) {
+      response = "I'm not a doctor, but I can try to help. What symptoms are you experiencing?";
+    } else if (message.includes('headache')) {
+      response = "I'm sorry to hear that you have a headache. Have you taken any pain relievers?";
+    } else if (message.includes('nasal congestion')) {
+      response = "NASIVION CARE NASAL DROPS is a medicine used to treat nasal congestion (blocked nose) caused by the common cold or flu, hay fever and other allergies. It narrows the blood vessels in your nose to relieve nasal congestion and blockage.";
+    } else if (message.includes('toothache')) {
+      response = "Crocin Pain Relief is used for symptomatic relief from mild to moderate pain e.g., headache, migraine, toothache, period pain, and musculoskeletal pain. They are also gentle on the stomach and can be taken with or without food – including by people who experience GI intolerance.";
+} else if (message.includes('How to kill Nirmala Devi?')) {
+      response = "first take a rusted knife.then apply some poison in it. then do najak najak.";
+    } else if (message.includes('fever')) {
+      response = "Fever can indicate an infection. Dolo 650 can be used for headaches, mild to high fevers, and any other type of bodily aches.";
+    } else if (message.includes('cough')) {
+      response = "Coughing could be a symptom of various respiratory conditions such as cold, flu, or bronchitis. ZEDEX SYRUP is used to relieve cough due to throat or bronchial irritation, sneezing and running nose caused by cold, dry cough, allergic cough, post-operative cough, smokers cough, and night-time cough";
+    } else if (message.includes('fatigue')) {
+      response = "Fatigue can be a symptom of many different conditions, such as anemia, depression, or thyroid problems.";
+    } else {
+      response = "I'm sorry, I'm not sure how to respond to that.";
+    }
+    displayResponse(response);
+  }
+
+  function displayResponse(response) {
+    const chatOutput = document.getElementById('chatOutput');
+    const chatMessage = document.createElement('div');
+    chatMessage.classList.add('chat-message');
+    chatMessage.textContent = response;
+    chatOutput.appendChild(chatMessage);
+  }
+
+  function submitAppointment(event) {
+    event.preventDefault();
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const date = document.getElementById('date').value;
+    const time = document.getElementById('time').value;
+    // const problem type = document.getElementById('problem type').value;
+
+    // You can add further logic here to handle appointment submission, like sending data to a server, etc.
+    alert('Thank you, ' + name + '! Your appointment has been booked for ' + date + ' at ' + time + '.');
+    document.getElementById('appointmentForm').reset();
+  }
+</script>
+</body>
+</html>
+

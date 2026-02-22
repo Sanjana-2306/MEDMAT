@@ -1,0 +1,186 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Medication App Calendar</title>
+<style>
+  body {
+    background-color: black;
+    color: white;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  #clock {
+    font-size: 48px;
+    color: Turquoise;
+    font-weight: bold; /* Make the clock font bold */
+    margin-bottom: 20px;
+  }
+  #calendar-container {
+    text-align: center;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 400px; /* Adjust as needed */
+    border-spacing: 0;
+  }
+  th, td {
+    border: none;
+    padding: 5px;
+    text-align: center;
+    width: 50px;
+    height: 50px;
+    transition: background-color 0.3s ease;
+    border-radius: 15%;
+    position: relative;
+  }
+  th {
+    background-color: #333;
+    color: white;
+    font-weight: bold;
+  }
+  td {
+    color: lightgray; /* Change color of text below dates */
+  }
+  td:hover {
+    transform: scale(1.1);
+    background-color: lightblue;
+    color: white; /* Change color of text below dates on hover */
+  }
+  .weekend {
+    background-color: #222;
+  }
+  .today {
+    background-color: pink;
+    color: black;
+  }
+  .selected {
+    background-color: #ffcc80; /* Change color as needed */
+  }
+  .event-dot {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    border-radius: 50%;
+  }
+</style>
+</head>
+<body>
+<div id="clock"></div>
+<div id="calendar-container">
+  <div id="calendar"></div>
+</div>
+
+<script>
+  let reminders = {};
+
+  function generateCalendar(year, month) {
+    const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const totalDaysInMonth = new Date(year, month + 1, 0).getDate();
+    const firstDayOfMonth = new Date(year, month, 1).getDay();
+    const today = new Date();
+
+    let html = '<h2>' + new Date(year, month).toLocaleString('default', { month: 'long' }).toUpperCase() + ' ' + year + '</h2>';
+    html += '<table>';
+    html += '<tr>';
+    daysOfWeek.forEach(day => {
+      html += '<th>' + day + '</th>';
+    });
+    html += '</tr>';
+    
+    let dayOfMonth = 1;
+    for (let i = 0; i < 6; i++) {
+      html += '<tr>';
+      for (let j = 0; j < 7; j++) {
+        if ((i === 0 && j < firstDayOfMonth) || dayOfMonth > totalDaysInMonth) {
+          html += '<td></td>';
+        } else {
+          let cellClass = '';
+          if (j === 0 || j === 6) {
+            cellClass = 'weekend';
+          }
+          if (today.getFullYear() === year && today.getMonth() === month && dayOfMonth === today.getDate()) {
+            cellClass = 'today';
+          }
+          html += '<td class="' + cellClass + '" onclick="addReminder(' + year + ',' + month + ',' + dayOfMonth + ')">' + dayOfMonth;
+          
+          // Display event dot if there is a reminder for this day
+          if (reminders[year] && reminders[year][month] && reminders[year][month][dayOfMonth]) {
+            html += '<div class="event-dot"></div>';
+          }
+          
+          html += '<div class="reminder-text">' + (reminders[year] && reminders[year][month] && reminders[year][month][dayOfMonth] ? reminders[year][month][dayOfMonth] : '') + '</div>'; // Display reminder text below the date
+          html += '</td>';
+          dayOfMonth++;
+        }
+      }
+      html += '</tr>';
+    }
+    
+    html += '</table>';
+    return html;
+  }
+  
+  function updateCalendar() {
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth();
+
+    document.getElementById('calendar').innerHTML = generateCalendar(currentYear, currentMonth);
+  }
+
+  function addReminder(year, month, day) {
+    // Prompt user to select a reminder option
+    const reminderOption = prompt('Select reminder option:\n1. Medication\n2. Doctor\'s appointment\n3. Other');
+    if (reminderOption !== null) {
+      // Add reminder for the selected date with the provided option
+      let reminderText;
+      switch (reminderOption) {
+        case '1':
+          reminderText = 'Medication';
+          break;
+        case '2':
+          reminderText = 'Doctor\'s appointment';
+          break;
+        case '3':
+          reminderText = prompt('Enter reminder text (Other):');
+          break;
+        default:
+          return;
+      }
+      if (reminderText.trim() !== '') {
+        if (!reminders[year]) reminders[year] = {};
+        if (!reminders[year][month]) reminders[year][month] = {};
+        reminders[year][month][day] = reminderText;
+        updateCalendar(); // Update the calendar to reflect the changes
+      }
+    }
+  }
+
+  // Function to update the digital clock
+  function updateClock() {
+    const now = new Date();
+    const hours = String(now.getHours()).padStart(2, '0');
+   
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    const timeString = hours + ':' + minutes + ':' + seconds;
+    document.getElementById('clock').textContent = timeString;
+  }
+
+  // Initial rendering of the calendar
+  updateCalendar();
+
+  // Update the clock every second
+  setInterval(updateClock, 1000);
+</script>
+</body>
+</html>
